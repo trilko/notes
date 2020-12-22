@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/ic_main_background"/>
-    <item android:drawable="@drawable/ic_baseline_ac_unit_24"
-        android:height="120dp"
-        android:width="120dp"
+    <item android:drawable="@drawable/ic_app_note"
+        android:height="240dp"
+        android:width="240dp"
         android:gravity="center"/>
 </layer-list>
