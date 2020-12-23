@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +13,6 @@ import com.dstarlab.notes.databinding.FragmentMainBinding
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
-import java.util.logging.Logger
 
 class MainFragment : Fragment() {
 
@@ -45,7 +42,7 @@ class MainFragment : Fragment() {
             logger.info(getString(R.string.database_init_success))
         }
         mBinding.btnAddNote.setOnClickListener {
-            APP_ACTIVITY.mNavHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
 
         //init viewModel and RecyclerView
@@ -65,5 +62,13 @@ class MainFragment : Fragment() {
         _binding = null
         mViewModel.allNotes.removeObserver(mObserverList)
         mRecyclerView.adapter = null
+    }
+
+    companion object {
+        fun click(note: AppNote) {
+            val bundle = Bundle()
+            bundle.putSerializable("note", note)
+            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+        }
     }
 }

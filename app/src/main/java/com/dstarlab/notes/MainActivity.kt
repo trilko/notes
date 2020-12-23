@@ -11,7 +11,7 @@ import com.dstarlab.notes.utilits.APP_ACTIVITY
 class MainActivity : AppCompatActivity() {
 
     lateinit var mToolbar: Toolbar
-    lateinit var mNavHostController: NavController
+    lateinit var navHostController: NavController
     private var _binding: ActivityMainBinding? = null
     val mBinding get() = _binding!!
 
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         APP_ACTIVITY = this
         mToolbar = mBinding.toolbar
-        mNavHostController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navHostController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
         title = getString(R.string.title)
     }

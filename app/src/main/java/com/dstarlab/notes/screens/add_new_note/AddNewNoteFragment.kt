@@ -43,7 +43,7 @@ class AddNewNoteFragment : Fragment() {
                 mViewModel.insert(AppNote(name = name, text = text)) {
                     logger.info(getString(R.string.note_insert_success))
                 }
-                APP_ACTIVITY.mNavHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                APP_ACTIVITY.navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
             }
         }
     }
