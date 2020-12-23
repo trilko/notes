@@ -5,4 +5,7 @@
     <string name="btn_add_note">Добавить</string>
     <string name="title">Заметки</string>
     <string name="toast_enter_name">Введите имя заметки</string>
+
+    <!-- logger -->
+    <string name="database_init_success">Database was successfully initialized</string>
 </resources>

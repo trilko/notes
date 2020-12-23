@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
+import com.dstarlab.notes.utilits.logger
+import java.util.logging.Logger
 
 class MainFragment : Fragment() {
 
@@ -30,7 +33,9 @@ class MainFragment : Fragment() {
 
     private fun initialization() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
+        mViewModel.initDatabase {
+            logger.info(getString(R.string.database_init_success))
+        }
     }
 
     override fun onDestroy() {
