@@ -1,4 +1,4 @@
-package com.dstarlab.notes.screens
+package com.dstarlab.notes.model.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

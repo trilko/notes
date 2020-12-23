@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
-import com.dstarlab.notes.screens.AppNote
+import com.dstarlab.notes.model.room.entity.AppNote
 import kotlinx.android.synthetic.main.note_item.view.*
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {

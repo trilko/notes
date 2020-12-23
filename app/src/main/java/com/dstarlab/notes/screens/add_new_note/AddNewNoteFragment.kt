@@ -1,4 +1,4 @@
-package com.dstarlab.notes.screens
+package com.dstarlab.notes.screens.add_new_note
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
