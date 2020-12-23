@@ -5,4 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
+    private val mContext = application
+
+    fun initDatabase() {
+
+    }
 }
