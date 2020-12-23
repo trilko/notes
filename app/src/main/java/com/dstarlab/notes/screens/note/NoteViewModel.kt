@@ -15,4 +15,11 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
         }
         onSuccess()
     }
+
+    fun update(note: AppNote, onSuccess: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.update(note)
+        }
+        onSuccess()
+    }
 }

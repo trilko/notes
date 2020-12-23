@@ -18,4 +18,8 @@ class AppRoomRepository(private val appRoomDao: AppRoomDao): DatabaseRepository 
         appRoomDao.delete(appNote)
     }
 
+    override suspend fun update(appNote: AppNote) {
+        appRoomDao.update(appNote)
+    }
+
 }

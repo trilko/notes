@@ -25,4 +25,5 @@
         <item name="android:inputType">text</item>
         <item name="android:autofillHints"></item>
     </style>
+
 </resources>

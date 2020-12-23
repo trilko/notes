@@ -6,31 +6,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.note.NoteFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/note_name"
+        android:text=""
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="LabelFor"
+        style="@style/editText"
+        android:autofillHints=""
+        android:hint="введите имя заметки" />
+
+    <EditText
+        android:id="@+id/note_text"
+        style="@style/editText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:gravity="top"
+        android:hint="введите текст"
+        android:inputType="textMultiLine"
+        android:minHeight="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_name"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/btn_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/app_margin"
-        android:gravity="center"
-        android:lines="1"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/app_large_text"
-        android:textStyle="bold"
+        android:text="@string/btn_save_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Name note" />
-
-    <TextView
-        android:id="@+id/note_text"
-        android:textSize="@dimen/app_normal_text"
-        tools:text="Note text"
-        android:textColor="@color/colorPrimary"
-        android:layout_margin="@dimen/app_margin"
-        app:layout_constraintTop_toBottomOf="@id/note_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@+id/note_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

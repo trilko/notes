@@ -7,4 +7,5 @@ interface DatabaseRepository {
     val allNotes: LiveData<List<AppNote>>
     suspend fun insert(appNote: AppNote)
     suspend fun delete(appNote: AppNote)
+    suspend fun update(appNote: AppNote)
 }

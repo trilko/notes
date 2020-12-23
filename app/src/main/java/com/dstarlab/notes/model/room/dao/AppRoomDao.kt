@@ -16,4 +16,6 @@ interface AppRoomDao {
     @Query("Select * from notes_tables")
     fun getAllNotes(): LiveData<List<AppNote>>
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(appNote: AppNote)
 }
