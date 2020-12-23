@@ -8,4 +8,5 @@
 
     <!-- logger -->
     <string name="database_init_success">Database was successfully initialized</string>
+    <string name="note_insert_success">New note success insert</string>
 </resources>
