@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
+import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 import java.util.logging.Logger
 
@@ -35,6 +36,10 @@ class MainFragment : Fragment() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mViewModel.initDatabase {
             logger.info(getString(R.string.database_init_success))
+        }
+
+        mBinding.btnAddNote.setOnClickListener {
+            APP_ACTIVITY.mNavHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
     }
 
