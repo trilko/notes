@@ -1,13 +1,17 @@
 package com.dstarlab.notes.screens.main
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
 import com.dstarlab.notes.model.room.entity.AppNote
 import kotlinx.android.synthetic.main.note_item.view.*
+
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
@@ -35,6 +39,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d(TAG, "bind, position = " + position);
         holder.nameNote.text = mListNotes[position].name
         holder.textNote.text = mListNotes[position].text
     }
@@ -42,7 +47,12 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     override fun getItemCount(): Int = mListNotes.size
 
     fun setListNotes(list: List<AppNote>) {
+        updateList(list)
         mListNotes = list
-        notifyDataSetChanged()
+    }
+
+    private fun updateList(newList: List<AppNote>) {
+        val diffResult = DiffUtil.calculateDiff(MainDiffUtils(this.mListNotes, newList))
+        diffResult.dispatchUpdatesTo(this)
     }
 }
