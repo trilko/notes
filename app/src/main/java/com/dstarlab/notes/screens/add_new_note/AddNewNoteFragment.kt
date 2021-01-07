@@ -9,30 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentAddNewNoteBinding
 import com.dstarlab.notes.model.room.entity.AppNote
+import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 import com.dstarlab.notes.utilits.showToast
 
-class AddNewNoteFragment : Fragment() {
+class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding>() {
 
-    private var _binding: FragmentAddNewNoteBinding? = null
-    private val mBinding get() = _binding!!
     private lateinit var mViewModel: AddNewNoteViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAddNewNoteBinding.inflate(layoutInflater, container, false)
-        return mBinding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
+    override fun initialization() {
         mViewModel = ViewModelProvider(this).get(AddNewNoteViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
             val name = mBinding.inputNameNote.text.toString()
@@ -48,9 +34,11 @@ class AddNewNoteFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun getFragmentBinding(
+            inflater: LayoutInflater,
+            container: ViewGroup?):
+            FragmentAddNewNoteBinding
+    = FragmentAddNewNoteBinding.inflate(inflater, container, false)
+
 
 }

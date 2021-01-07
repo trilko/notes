@@ -1,38 +1,22 @@
 package com.dstarlab.notes.screens.note
 
-import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentNoteBinding
 import com.dstarlab.notes.model.room.entity.AppNote
+import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 import com.dstarlab.notes.utilits.showToast
 
-class NoteFragment : Fragment() {
+class NoteFragment : BaseFragment<FragmentNoteBinding>() {
 
-    private var _binding: FragmentNoteBinding? = null
-    private val mBinding get() = _binding!!
     private lateinit var mViewModel: NoteViewModel
     private lateinit var mCurrentNote: AppNote
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentNoteBinding.inflate(layoutInflater, container, false)
+    override fun initialization() {
         mCurrentNote = arguments?.getSerializable("note") as AppNote
-        return mBinding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
         setHasOptionsMenu(true)
         mBinding.noteText.setText(mCurrentNote.text)
         mBinding.noteName.setText(mCurrentNote.name)
@@ -42,7 +26,7 @@ class NoteFragment : Fragment() {
             val id = mCurrentNote.id
             val name = mBinding.noteName.text.toString()
             val text = mBinding.noteText.text.toString()
-            if((name == null)||(name == "")) {
+            if(name == "") {
                 showToast(getString(R.string.toast_enter_name))
             } else {
                 mViewModel.update(AppNote(id = id, name = name, text = text)) {
@@ -69,9 +53,10 @@ class NoteFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun getFragmentBinding(
+            inflater: LayoutInflater,
+            container: ViewGroup?):
+            FragmentNoteBinding
+            = FragmentNoteBinding.inflate(inflater,container,false)
 
 }

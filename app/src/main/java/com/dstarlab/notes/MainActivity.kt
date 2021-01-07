@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mToolbar: Toolbar
     lateinit var navHostController: NavController
     private var _binding: ActivityMainBinding? = null
-    val mBinding get() = _binding!!
+    private val mBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Notes)
