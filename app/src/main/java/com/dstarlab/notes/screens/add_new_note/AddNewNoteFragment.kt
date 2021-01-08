@@ -1,9 +1,6 @@
 package com.dstarlab.notes.screens.add_new_note
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
@@ -14,9 +11,7 @@ import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 import com.dstarlab.notes.utilits.showToast
 
-class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding>() {
-
-    private lateinit var mViewModel: AddNewNoteViewModel
+class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteViewModel>() {
 
     override fun initialization() {
         mViewModel = ViewModelProvider(this).get(AddNewNoteViewModel::class.java)
@@ -40,5 +35,6 @@ class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding>() {
             FragmentAddNewNoteBinding
     = FragmentAddNewNoteBinding.inflate(inflater, container, false)
 
+    override fun getViewModel(): Class<AddNewNoteViewModel> = AddNewNoteViewModel::class.java
 
 }

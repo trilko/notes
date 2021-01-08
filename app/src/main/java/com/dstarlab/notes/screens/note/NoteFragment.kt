@@ -10,9 +10,8 @@ import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 import com.dstarlab.notes.utilits.showToast
 
-class NoteFragment : BaseFragment<FragmentNoteBinding>() {
+class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
 
-    private lateinit var mViewModel: NoteViewModel
     private lateinit var mCurrentNote: AppNote
 
     override fun initialization() {
@@ -58,5 +57,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>() {
             container: ViewGroup?):
             FragmentNoteBinding
             = FragmentNoteBinding.inflate(inflater,container,false)
+
+    override fun getViewModel(): Class<NoteViewModel> = NoteViewModel::class.java
 
 }

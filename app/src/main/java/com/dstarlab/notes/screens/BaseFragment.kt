@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.AndroidViewModel
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB: ViewBinding> : Fragment() {
+abstract class BaseFragment<VB: ViewBinding, VM: AndroidViewModel> : Fragment() {
 
+    protected lateinit var mViewModel: VM
     private var _binding : VB ?= null
     protected val mBinding get() = _binding!!
 
@@ -34,4 +36,5 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment() {
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater,container: ViewGroup?): VB
+    abstract fun getViewModel() : Class<VM>
 }

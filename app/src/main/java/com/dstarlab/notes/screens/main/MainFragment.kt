@@ -13,9 +13,8 @@ import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.APP_ACTIVITY
 import com.dstarlab.notes.utilits.logger
 
-class MainFragment() : BaseFragment<FragmentMainBinding>() {
+class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
-    private lateinit var mViewModel: MainViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainAdapter
     private lateinit var mObserverList: Observer<List<AppNote>>
@@ -59,5 +58,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding>() {
             inflater: LayoutInflater,
             container: ViewGroup?
     ) = FragmentMainBinding.inflate(inflater,container,false)
+
+    override fun getViewModel(): Class<MainViewModel> = MainViewModel::class.java
 
 }
