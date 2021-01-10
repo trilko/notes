@@ -1,6 +1,7 @@
 package com.dstarlab.notes.screens.note
 
 import android.view.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentNoteBinding
@@ -13,6 +14,7 @@ import com.dstarlab.notes.utilits.showToast
 class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
 
     private lateinit var mCurrentNote: AppNote
+    private lateinit var mObserverList: Observer<List<AppNote>>
 
     override fun initialization() {
         mCurrentNote = arguments?.getSerializable("note") as AppNote
@@ -28,10 +30,11 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
             if(name == "") {
                 showToast(getString(R.string.toast_enter_name))
             } else {
-                mViewModel.update(AppNote(id = id, name = name, text = text)) {
-                    logger.info(getString(R.string.note_update_success))
+                mViewModel.update(AppNote(id = id, name = name, text = text))
+                mObserverList = Observer {
+                    APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
                 }
-                APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
+                mViewModel.allNotes.observe(this, mObserverList)
             }
         }
     }
@@ -43,10 +46,11 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.btn_delete -> {
-                mViewModel.delete(mCurrentNote) {
-                    logger.info(getString(R.string.note_delete_success))
+                mViewModel.delete(mCurrentNote)
+                mObserverList = Observer {
+                    APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
                 }
-                APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
+                mViewModel.allNotes.observe(this, mObserverList)
             }
         }
         return super.onOptionsItemSelected(item)

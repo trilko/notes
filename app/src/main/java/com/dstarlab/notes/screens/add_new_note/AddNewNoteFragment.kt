@@ -2,6 +2,7 @@ package com.dstarlab.notes.screens.add_new_note
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentAddNewNoteBinding
@@ -13,6 +14,8 @@ import com.dstarlab.notes.utilits.showToast
 
 class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteViewModel>() {
 
+    private lateinit var mObserverList: Observer<List<AppNote>>
+
     override fun initialization() {
         mViewModel = ViewModelProvider(this).get(AddNewNoteViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
@@ -21,10 +24,11 @@ class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteVie
             if (name.isEmpty()) {
                 showToast(getString(R.string.toast_enter_name))
             } else {
-                mViewModel.insert(AppNote(name = name, text = text)) {
-                    logger.info(getString(R.string.note_insert_success))
+                mViewModel.insert(AppNote(name = name, text = text))
+                mObserverList = Observer {
+                    APP_ACTIVITY.navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
                 }
-                APP_ACTIVITY.navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                mViewModel.allNotes.observe(this, mObserverList)
             }
         }
     }

@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dstarlab.notes.databinding.ActivityMainBinding
 import com.dstarlab.notes.utilits.APP_ACTIVITY
+import com.dstarlab.notes.utilits.logger
 
 class MainActivity : AppCompatActivity() {
 

@@ -21,9 +21,6 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun initialization() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mViewModel.initDatabase {
-            logger.info(getString(R.string.database_init_success))
-        }
         mBinding.btnAddNote.setOnClickListener {
             APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
