@@ -33,7 +33,6 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
             val list = it.asReversed()
             mAdapter.setListNotes(list)
         }
-        mViewModel.initAllNotes()
         mViewModel.allNotes.observe(this, mObserverList)
     }
 
