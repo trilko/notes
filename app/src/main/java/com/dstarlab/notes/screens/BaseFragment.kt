@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
+import com.dstarlab.notes.model.room.entity.AppNote
 
 abstract class BaseFragment<VB: ViewBinding, VM: AndroidViewModel> : Fragment() {
 
     protected lateinit var mViewModel: VM
     private var _binding : VB ?= null
     protected val mBinding get() = _binding!!
+    protected lateinit var mObserverList: Observer<List<AppNote>>
 
     override fun onCreateView(
             inflater: LayoutInflater,

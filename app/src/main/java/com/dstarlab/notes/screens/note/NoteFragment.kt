@@ -3,18 +3,16 @@ package com.dstarlab.notes.screens.note
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentNoteBinding
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
-import com.dstarlab.notes.utilits.APP_ACTIVITY
-import com.dstarlab.notes.utilits.logger
 import com.dstarlab.notes.utilits.showToast
 
 class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
 
     private lateinit var mCurrentNote: AppNote
-    private lateinit var mObserverList: Observer<List<AppNote>>
 
     override fun initialization() {
         mCurrentNote = arguments?.getSerializable("note") as AppNote
@@ -28,11 +26,11 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
             val name = mBinding.noteName.text.toString()
             val text = mBinding.noteText.text.toString()
             if(name == "") {
-                showToast(getString(R.string.toast_enter_name))
+                showToast(getString(R.string.toast_enter_name), activity as MainActivity)
             } else {
                 mViewModel.update(AppNote(id = id, name = name, text = text))
                 mObserverList = Observer {
-                    APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
+                    (activity as MainActivity).navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
                 }
                 mViewModel.allNotes.observe(this, mObserverList)
             }
@@ -48,12 +46,17 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
             R.id.btn_delete -> {
                 mViewModel.delete(mCurrentNote)
                 mObserverList = Observer {
-                    APP_ACTIVITY.navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
+                    (activity as MainActivity).navHostController.navigate(R.id.action_noteFragment_to_mainFragment)
                 }
                 mViewModel.allNotes.observe(this, mObserverList)
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewModel.allNotes.removeObserver(mObserverList)
     }
 
     override fun getFragmentBinding(

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
@@ -24,7 +25,8 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         holder.itemView.setOnClickListener {
-            MainFragment.click(mListNotes[holder.adapterPosition])
+            val activity = it.context as AppCompatActivity
+            MainFragment.click(mListNotes[holder.adapterPosition], activity)
         }
     }
 
@@ -39,7 +41,6 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(TAG, "bind, position = " + position);
         holder.nameNote.text = mListNotes[position].name
         holder.textNote.text = mListNotes[position].text
     }

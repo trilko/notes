@@ -1,28 +1,27 @@
 package com.dstarlab.notes.screens.main
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
-import com.dstarlab.notes.utilits.APP_ACTIVITY
-import com.dstarlab.notes.utilits.logger
 
 class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainAdapter
-    private lateinit var mObserverList: Observer<List<AppNote>>
 
     override fun initialization() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
-            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            (activity as MainActivity).navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
 
         //init viewModel and RecyclerView
@@ -43,17 +42,17 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     companion object {
-        fun click(note: AppNote) {
+        fun click(note: AppNote, activity: Activity) {
             val bundle = Bundle()
             bundle.putSerializable("note", note)
-            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+            (activity as MainActivity).navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
     }
 
     override fun getFragmentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?
-    ) = FragmentMainBinding.inflate(inflater,container,false)
+    ) = FragmentMainBinding.inflate(inflater, container, false)
 
     override fun getViewModel(): Class<MainViewModel> = MainViewModel::class.java
 

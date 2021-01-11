@@ -1,13 +1,11 @@
 package com.dstarlab.notes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dstarlab.notes.databinding.ActivityMainBinding
-import com.dstarlab.notes.utilits.APP_ACTIVITY
-import com.dstarlab.notes.utilits.logger
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        APP_ACTIVITY = this
         mToolbar = mBinding.toolbar
         navHostController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
