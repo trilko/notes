@@ -9,6 +9,7 @@ import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentAddNewNoteBinding
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
+import com.dstarlab.notes.utilits.navigate
 import com.dstarlab.notes.utilits.showToast
 
 class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteViewModel>() {
@@ -23,7 +24,8 @@ class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteVie
             } else {
                 mViewModel.insert(AppNote(name = name, text = text))
                 mObserverList = Observer {
-                    (activity as MainActivity).navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                    navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+//                    (activity as MainActivity).navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
                 }
                 mViewModel.allNotes.observe(this, mObserverList)
             }

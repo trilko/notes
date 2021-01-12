@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dstarlab.notes.databinding.ActivityMainBinding
+import com.dstarlab.notes.utilits.findNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         mToolbar = mBinding.toolbar
+        findNavController(R.id.nav_host_fragment)
         navHostController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
         title = getString(R.string.title)

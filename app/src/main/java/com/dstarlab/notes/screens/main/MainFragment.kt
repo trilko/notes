@@ -12,6 +12,7 @@ import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
+import com.dstarlab.notes.utilits.navigate
 
 class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
@@ -21,7 +22,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun initialization() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
-            (activity as MainActivity).navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
 
         //init viewModel and RecyclerView
@@ -45,6 +46,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
         fun click(note: AppNote, activity: Activity) {
             val bundle = Bundle()
             bundle.putSerializable("note", note)
+            //i don't pretty sure how to solve this boilerplate code in this case
             (activity as MainActivity).navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
     }
