@@ -6,8 +6,9 @@ import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel(application: Application): BaseViewModel(application) {
+class NoteViewModel @Inject constructor(application: Application): BaseViewModel(application) {
 
     fun delete(note: AppNote) {
         viewModelScope.launch(Dispatchers.IO) {

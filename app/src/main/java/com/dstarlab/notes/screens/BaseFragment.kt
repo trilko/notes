@@ -7,15 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
+import com.dstarlab.notes.di.ViewModelFactory
+import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.room.entity.AppNote
+import com.dstarlab.notes.screens.note.NoteViewModel
+import com.dstarlab.notes.utilits.injectViewModel
+import javax.inject.Inject
 
-abstract class BaseFragment<VB: ViewBinding, VM: AndroidViewModel> : Fragment() {
+abstract class BaseFragment<VB: ViewBinding, VM: ViewModel> : Fragment() {
 
-    protected lateinit var mViewModel: VM
     private var _binding : VB ?= null
     protected val mBinding get() = _binding!!
     protected lateinit var mObserverList: Observer<List<AppNote>>
+
+    @Inject
+    lateinit var mViewModel: VM
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -28,10 +39,13 @@ abstract class BaseFragment<VB: ViewBinding, VM: AndroidViewModel> : Fragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeViewModel()
         initialization()
     }
 
     abstract fun initialization()
+
+    abstract fun initializeViewModel()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -39,5 +53,4 @@ abstract class BaseFragment<VB: ViewBinding, VM: AndroidViewModel> : Fragment() 
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater,container: ViewGroup?): VB
-    abstract fun getViewModel() : Class<VM>
 }

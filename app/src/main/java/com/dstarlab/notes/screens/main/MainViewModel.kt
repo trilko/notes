@@ -2,7 +2,8 @@ package com.dstarlab.notes.screens.main
 
 import android.app.Application
 import com.dstarlab.notes.screens.BaseViewModel
+import javax.inject.Inject
 
-class MainViewModel(application: Application): BaseViewModel(application) {
+class MainViewModel @Inject constructor(application: Application): BaseViewModel(application) {
 
 }

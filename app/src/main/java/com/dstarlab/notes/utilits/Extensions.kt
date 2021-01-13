@@ -1,9 +1,14 @@
+@file:Suppress("DEPRECATION")
+
 package com.dstarlab.notes.utilits
 
 import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -17,8 +22,6 @@ fun Fragment.navigate(resId: Int, bundle: Bundle? = null) {
     NavHostFragment.findNavController(this).navigate(resId, bundle)
 }
 
-fun Fragment.click(note: AppNote) {
-    val bundle = Bundle()
-    bundle.putSerializable("note", note)
-    navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+inline fun <reified T : ViewModel> Fragment.injectViewModel(factory: ViewModelProvider.Factory): T {
+    return ViewModelProviders.of(this, factory)[T::class.java]
 }

@@ -6,8 +6,9 @@ import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddNewNoteViewModel(application: Application): BaseViewModel(application) {
+class AddNewNoteViewModel @Inject constructor(application: Application): BaseViewModel(application) {
 
     fun insert(note:AppNote) {
         viewModelScope.launch(Dispatchers.IO) {

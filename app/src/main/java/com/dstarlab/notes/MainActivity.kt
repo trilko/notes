@@ -6,6 +6,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dstarlab.notes.databinding.ActivityMainBinding
+import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.di.components.MainComponent
+import com.dstarlab.notes.screens.main.MainFragment
 import com.dstarlab.notes.utilits.findNavController
 
 class MainActivity : AppCompatActivity() {

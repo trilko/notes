@@ -1,21 +1,27 @@
 package com.dstarlab.notes.screens.add_new_note
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentAddNewNoteBinding
+import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
+import com.dstarlab.notes.utilits.injectViewModel
 import com.dstarlab.notes.utilits.navigate
 import com.dstarlab.notes.utilits.showToast
 
 class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteViewModel>() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerMainComponent.builder().application(requireActivity().application).build().inject(this)
+    }
+
     override fun initialization() {
-        mViewModel = ViewModelProvider(this).get(AddNewNoteViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
             val name = mBinding.inputNameNote.text.toString()
             val text = mBinding.inputTextNote.text.toString()
@@ -24,25 +30,26 @@ class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteVie
             } else {
                 mViewModel.insert(AppNote(name = name, text = text))
                 mObserverList = Observer {
-                    navigate(R.id.action_addNewNoteFragment_to_mainFragment)
-//                    (activity as MainActivity).navHostController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                    navigate(R.id.action_addNewNoteFragment_to_mainFragment, null)
                 }
                 mViewModel.allNotes.observe(this, mObserverList)
             }
         }
     }
 
-    override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?):
-            FragmentAddNewNoteBinding
-    = FragmentAddNewNoteBinding.inflate(inflater, container, false)
-
     override fun onDestroy() {
         super.onDestroy()
         mViewModel.allNotes.removeObserver(mObserverList)
     }
 
-    override fun getViewModel(): Class<AddNewNoteViewModel> = AddNewNoteViewModel::class.java
+    override fun initializeViewModel() {
+        mViewModel = injectViewModel(viewModelFactory)
+    }
+
+    override fun getFragmentBinding(
+            inflater: LayoutInflater,
+            container: ViewGroup?):
+            FragmentAddNewNoteBinding
+            = FragmentAddNewNoteBinding.inflate(inflater, container, false)
 
 }

@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
+import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
+import com.dstarlab.notes.utilits.injectViewModel
 import com.dstarlab.notes.utilits.navigate
 
 class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -19,10 +20,14 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerMainComponent.builder().application(requireActivity().application).build().inject(this)
+    }
+
     override fun initialization() {
-        mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mBinding.btnAddNote.setOnClickListener {
-            navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            navigate(R.id.action_mainFragment_to_addNewNoteFragment, null)
         }
 
         //init viewModel and RecyclerView
@@ -51,11 +56,13 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
         }
     }
 
+    override fun initializeViewModel() {
+        mViewModel = injectViewModel(viewModelFactory)
+    }
+
     override fun getFragmentBinding(
             inflater: LayoutInflater,
             container: ViewGroup?
     ) = FragmentMainBinding.inflate(inflater, container, false)
-
-    override fun getViewModel(): Class<MainViewModel> = MainViewModel::class.java
 
 }
