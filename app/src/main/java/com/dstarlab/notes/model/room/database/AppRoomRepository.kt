@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import com.dstarlab.notes.model.DatabaseRepository
 import com.dstarlab.notes.model.room.dao.AppRoomDao
 import com.dstarlab.notes.model.room.entity.AppNote
+import javax.inject.Inject
 
-class AppRoomRepository(private val appRoomDao: AppRoomDao): DatabaseRepository {
+class AppRoomRepository @Inject constructor(private val appRoomDao: AppRoomDao): DatabaseRepository {
 
     override val allNotes: LiveData<List<AppNote>>
         get() = appRoomDao.getAllNotes()

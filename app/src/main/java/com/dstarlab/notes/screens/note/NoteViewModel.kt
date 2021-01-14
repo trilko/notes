@@ -2,6 +2,7 @@ package com.dstarlab.notes.screens.note
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseViewModel
 import kotlinx.coroutines.Dispatchers

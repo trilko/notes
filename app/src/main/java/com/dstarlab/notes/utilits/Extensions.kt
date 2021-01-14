@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import com.dstarlab.notes.R
-import com.dstarlab.notes.model.room.entity.AppNote
 
 fun Activity.findNavController(@IdRes viewId: Int): NavController =
         Navigation.findNavController(this, viewId)
