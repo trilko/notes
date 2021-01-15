@@ -1,12 +1,9 @@
 package com.dstarlab.notes.screens.note
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.mapper.AppNoteMapper
-import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

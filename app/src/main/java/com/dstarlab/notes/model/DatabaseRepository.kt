@@ -1,6 +1,5 @@
 package com.dstarlab.notes.model
 
-import androidx.lifecycle.LiveData
 import com.dstarlab.notes.model.room.entity.AppNote
 
 interface DatabaseRepository {

@@ -1,9 +1,7 @@
 package com.dstarlab.notes.model.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dstarlab.notes.model.room.entity.AppNote
-import javax.inject.Inject
 
 @Dao
 interface AppRoomDao {

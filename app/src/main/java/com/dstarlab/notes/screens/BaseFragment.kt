@@ -5,16 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.dstarlab.notes.di.ViewModelFactory
-import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.dto.AppNoteDTO
-import com.dstarlab.notes.model.room.entity.AppNote
-import com.dstarlab.notes.screens.note.NoteViewModel
-import com.dstarlab.notes.utilits.injectViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment<VB: ViewBinding, VM: ViewModel> : Fragment() {

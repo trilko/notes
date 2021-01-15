@@ -8,7 +8,6 @@ import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentNoteBinding
 import com.dstarlab.notes.di.components.DaggerMainComponent
 import com.dstarlab.notes.model.dto.AppNoteDTO
-import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.injectViewModel
 import com.dstarlab.notes.utilits.navigate

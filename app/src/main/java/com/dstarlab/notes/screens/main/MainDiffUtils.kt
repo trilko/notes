@@ -2,7 +2,6 @@ package com.dstarlab.notes.screens.main
 
 import androidx.recyclerview.widget.DiffUtil
 import com.dstarlab.notes.model.dto.AppNoteDTO
-import com.dstarlab.notes.model.room.entity.AppNote
 
 class MainDiffUtils(private val oldList: List<AppNoteDTO>, private val newList: List<AppNoteDTO>): DiffUtil.Callback() {
 

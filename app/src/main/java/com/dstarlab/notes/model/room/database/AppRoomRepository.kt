@@ -1,6 +1,5 @@
 package com.dstarlab.notes.model.room.database
 
-import androidx.lifecycle.LiveData
 import com.dstarlab.notes.model.DatabaseRepository
 import com.dstarlab.notes.model.room.dao.AppRoomDao
 import com.dstarlab.notes.model.room.entity.AppNote

@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dstarlab.notes.model.room.dao.AppRoomDao
 import com.dstarlab.notes.model.room.entity.AppNote
-import javax.inject.Inject
 
 @Database(entities = [AppNote::class], version = 1)
 abstract class AppRoomDatabase : RoomDatabase() {

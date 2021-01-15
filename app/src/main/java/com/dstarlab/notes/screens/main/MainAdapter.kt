@@ -1,7 +1,5 @@
 package com.dstarlab.notes.screens.main
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
 import com.dstarlab.notes.model.dto.AppNoteDTO
-import com.dstarlab.notes.model.room.entity.AppNote
 import kotlinx.android.synthetic.main.note_item.view.*
 
 
