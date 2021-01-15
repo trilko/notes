@@ -8,6 +8,7 @@ import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentAddNewNoteBinding
 import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.injectViewModel
@@ -28,7 +29,7 @@ class AddNewNoteFragment : BaseFragment<FragmentAddNewNoteBinding, AddNewNoteVie
             if (name.isEmpty()) {
                 showToast(getString(R.string.toast_enter_name), activity as MainActivity)
             } else {
-                mViewModel.insert(AppNote(name = name, text = text))
+                mViewModel.insert(AppNoteDTO(name = name, text = text))
                 mObserverList = Observer {
                     navigate(R.id.action_addNewNoteFragment_to_mainFragment, null)
                 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AppRoomRepository @Inject constructor(private val appRoomDao: AppRoomDao): DatabaseRepository {
 
-    override val allNotes: LiveData<List<AppNote>>
+    override val allNotes: List<AppNote>
         get() = appRoomDao.getAllNotes()
 
     override suspend fun insert(appNote: AppNote) {

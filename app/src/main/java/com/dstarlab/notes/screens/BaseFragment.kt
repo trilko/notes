@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.dstarlab.notes.di.ViewModelFactory
 import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.note.NoteViewModel
 import com.dstarlab.notes.utilits.injectViewModel
@@ -20,7 +21,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel> : Fragment() {
 
     private var _binding : VB ?= null
     protected val mBinding get() = _binding!!
-    protected lateinit var mObserverList: Observer<List<AppNote>>
+    protected lateinit var mObserverList: Observer<List<AppNoteDTO>>
 
     @Inject
     lateinit var mViewModel: VM

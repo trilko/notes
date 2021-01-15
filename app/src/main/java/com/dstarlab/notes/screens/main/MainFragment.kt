@@ -10,6 +10,7 @@ import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
 import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.injectViewModel
@@ -34,6 +35,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
         mAdapter = MainAdapter()
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
+        mViewModel.updateLiveData()
         mObserverList = Observer {
             val list = it.asReversed()
             mAdapter.setListNotes(list)
@@ -48,7 +50,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     companion object {
-        fun click(note: AppNote, activity: Activity) {
+        fun click(note: AppNoteDTO, activity: Activity) {
             val bundle = Bundle()
             bundle.putSerializable("note", note)
             //i don't pretty sure how to solve this boilerplate code in this case

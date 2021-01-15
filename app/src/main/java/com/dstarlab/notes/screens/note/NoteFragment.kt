@@ -7,6 +7,7 @@ import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentNoteBinding
 import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.room.entity.AppNote
 import com.dstarlab.notes.screens.BaseFragment
 import com.dstarlab.notes.utilits.injectViewModel
@@ -15,7 +16,7 @@ import com.dstarlab.notes.utilits.showToast
 
 class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
 
-    private lateinit var mCurrentNote: AppNote
+    private lateinit var mCurrentNote: AppNoteDTO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +24,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
     }
 
     override fun initialization() {
-        mCurrentNote = arguments?.getSerializable("note") as AppNote
+        mCurrentNote = arguments?.getSerializable("note") as AppNoteDTO
         setHasOptionsMenu(true)
         mBinding.noteText.setText(mCurrentNote.text)
         mBinding.noteName.setText(mCurrentNote.name)
@@ -35,7 +36,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding, NoteViewModel>() {
             if(name == "") {
                 showToast(getString(R.string.toast_enter_name), activity as MainActivity)
             } else {
-                mViewModel.update(AppNote(id = id, name = name, text = text))
+                mViewModel.update(AppNoteDTO(id = id, name = name, text = text))
                 mObserverList = Observer {
                     navigate(R.id.action_noteFragment_to_mainFragment, null)
                 }

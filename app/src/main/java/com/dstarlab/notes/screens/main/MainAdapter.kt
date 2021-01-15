@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import com.dstarlab.notes.model.room.entity.AppNote
 import kotlinx.android.synthetic.main.note_item.view.*
 
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    private var mListNotes = emptyList<AppNote>()
+    private var mListNotes = emptyList<AppNoteDTO>()
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val nameNote: TextView = view.item_note_name
@@ -47,12 +48,12 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = mListNotes.size
 
-    fun setListNotes(list: List<AppNote>) {
+    fun setListNotes(list: List<AppNoteDTO>) {
         updateList(list)
         mListNotes = list
     }
 
-    private fun updateList(newList: List<AppNote>) {
+    private fun updateList(newList: List<AppNoteDTO>) {
         val diffResult = DiffUtil.calculateDiff(MainDiffUtils(this.mListNotes, newList))
         diffResult.dispatchUpdatesTo(this)
     }

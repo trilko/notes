@@ -7,6 +7,7 @@ import com.dstarlab.notes.model.room.database.AppRoomDatabase
 import com.dstarlab.notes.model.room.database.AppRoomRepository
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class MainModelModule {
@@ -17,6 +18,7 @@ class MainModelModule {
     }
 
     @Provides
+    @Singleton
     fun bindRepositoryProvider(dao: AppRoomDao): DatabaseRepository {
         return AppRoomRepository(dao)
     }
