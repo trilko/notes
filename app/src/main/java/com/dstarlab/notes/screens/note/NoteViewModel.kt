@@ -1,25 +1,32 @@
 package com.dstarlab.notes.screens.note
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.dstarlab.notes.model.room.entity.AppNote
-import com.dstarlab.notes.utilits.REPOSITORY
+import com.dstarlab.notes.model.dto.AppNoteDTO
+import com.dstarlab.notes.model.mapper.AppNoteMapper
+import com.dstarlab.notes.screens.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel(application: Application): AndroidViewModel(application) {
-    fun delete(note: AppNote, onSuccess: () -> Unit) {
+class NoteViewModel @Inject constructor(application: Application): BaseViewModel(application) {
+
+    fun delete(note: AppNoteDTO) {
         viewModelScope.launch(Dispatchers.IO) {
-            REPOSITORY.delete(note)
+            repository.delete(
+                    AppNoteMapper().mapFromDomainModel(note)
+            )
+            updateLiveData()
         }
-        onSuccess()
     }
 
-    fun update(note: AppNote, onSuccess: () -> Unit) {
+    fun update(note: AppNoteDTO) {
         viewModelScope.launch(Dispatchers.IO) {
-            REPOSITORY.update(note)
+            repository.update(
+                    AppNoteMapper().mapFromDomainModel(note)
+            )
+            updateLiveData()
         }
-        onSuccess()
     }
+
 }

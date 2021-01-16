@@ -4,14 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dstarlab.notes.R
-import com.dstarlab.notes.model.room.entity.AppNote
+import com.dstarlab.notes.model.dto.AppNoteDTO
 import kotlinx.android.synthetic.main.note_item.view.*
+
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    private var mListNotes = emptyList<AppNote>()
+    private var mListNotes = emptyList<AppNoteDTO>()
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val nameNote: TextView = view.item_note_name
@@ -20,7 +23,8 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         holder.itemView.setOnClickListener {
-            MainFragment.click(mListNotes[holder.adapterPosition])
+            val activity = it.context as AppCompatActivity
+            MainFragment.click(mListNotes[holder.adapterPosition], activity)
         }
     }
 
@@ -41,8 +45,13 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = mListNotes.size
 
-    fun setListNotes(list: List<AppNote>) {
+    fun setListNotes(list: List<AppNoteDTO>) {
+        updateList(list)
         mListNotes = list
-        notifyDataSetChanged()
+    }
+
+    private fun updateList(newList: List<AppNoteDTO>) {
+        val diffResult = DiffUtil.calculateDiff(MainDiffUtils(this.mListNotes, newList))
+        diffResult.dispatchUpdatesTo(this)
     }
 }

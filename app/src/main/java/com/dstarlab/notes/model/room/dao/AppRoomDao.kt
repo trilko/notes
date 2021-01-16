@@ -1,6 +1,5 @@
 package com.dstarlab.notes.model.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dstarlab.notes.model.room.entity.AppNote
 
@@ -14,7 +13,7 @@ interface AppRoomDao {
     fun delete(appNote: AppNote)
 
     @Query("Select * from notes_tables")
-    fun getAllNotes(): LiveData<List<AppNote>>
+    fun getAllNotes(): List<AppNote>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(appNote: AppNote)

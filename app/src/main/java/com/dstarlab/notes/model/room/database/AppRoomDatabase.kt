@@ -8,7 +8,7 @@ import com.dstarlab.notes.model.room.dao.AppRoomDao
 import com.dstarlab.notes.model.room.entity.AppNote
 
 @Database(entities = [AppNote::class], version = 1)
-abstract class AppRoomDatabase: RoomDatabase() {
+abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun getAppRoomDao(): AppRoomDao
 
     companion object {
@@ -17,7 +17,7 @@ abstract class AppRoomDatabase: RoomDatabase() {
         private var database: AppRoomDatabase? = null
 
         @Synchronized
-        fun getInstance(context: Context): AppRoomDatabase {
+        fun getInstance (context: Context): AppRoomDatabase {
             return if( database == null ) {
                 database = Room.databaseBuilder(
                     context,

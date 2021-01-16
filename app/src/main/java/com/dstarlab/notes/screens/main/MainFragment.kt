@@ -1,74 +1,69 @@
 package com.dstarlab.notes.screens.main
 
+import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.dstarlab.notes.MainActivity
 import com.dstarlab.notes.R
 import com.dstarlab.notes.databinding.FragmentMainBinding
-import com.dstarlab.notes.model.room.entity.AppNote
-import com.dstarlab.notes.utilits.APP_ACTIVITY
-import com.dstarlab.notes.utilits.logger
+import com.dstarlab.notes.di.components.DaggerMainComponent
+import com.dstarlab.notes.model.dto.AppNoteDTO
+import com.dstarlab.notes.screens.BaseFragment
+import com.dstarlab.notes.utilits.injectViewModel
+import com.dstarlab.notes.utilits.navigate
 
-class MainFragment : Fragment() {
+class MainFragment() : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
-    private var _binding: FragmentMainBinding? = null
-    private val mBinding get() = _binding!!
-    private lateinit var mViewModel: MainViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainAdapter
-    private lateinit var mObserverList: Observer<List<AppNote>>
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        return mBinding.root
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerMainComponent.builder().application(requireActivity().application).build().inject(this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
-        mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mViewModel.initDatabase {
-            logger.info(getString(R.string.database_init_success))
-        }
+    override fun initialization() {
         mBinding.btnAddNote.setOnClickListener {
-            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            navigate(R.id.action_mainFragment_to_addNewNoteFragment, null)
         }
 
         //init viewModel and RecyclerView
         mAdapter = MainAdapter()
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
+        mViewModel.updateLiveData()
         mObserverList = Observer {
             val list = it.asReversed()
             mAdapter.setListNotes(list)
         }
-        mViewModel.initAllNotes()
         mViewModel.allNotes.observe(this, mObserverList)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mViewModel.allNotes.removeObserver(mObserverList)
         mRecyclerView.adapter = null
     }
 
     companion object {
-        fun click(note: AppNote) {
+        fun click(note: AppNoteDTO, activity: Activity) {
             val bundle = Bundle()
             bundle.putSerializable("note", note)
-            APP_ACTIVITY.navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+            //i don't pretty sure how to solve this boilerplate code in this case
+            (activity as MainActivity).navHostController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
     }
+
+    override fun initializeViewModel() {
+        mViewModel = injectViewModel(viewModelFactory)
+    }
+
+    override fun getFragmentBinding(
+            inflater: LayoutInflater,
+            container: ViewGroup?
+    ) = FragmentMainBinding.inflate(inflater, container, false)
+
 }
